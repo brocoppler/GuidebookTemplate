@@ -11,14 +11,14 @@ This workshop starts you out with a base application with a simple data model an
 3.	Navigate to https://github.com/joeymart/ParkingIssues and **fork** the project.
 4.	From the ServiceNow main page, open **Studio** (System Applications > Studio).
 5.	In the **Open Studio** module, click **“Go”** to popup the **Studio IDE**
- 
+ ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture1.png)
 6.	In the popup that appears, select **Import From Source Control:**
- 
+  ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture2.png)
 7.	Get the **HTTPS** URL from your Forked GitHub repo. It will look something like: “https://github.com/your.username/ParkingIssues.git”
 8.	Paste that **HTTPS URL** into the **Import Application** popup, along with your git credentials, and click **Import**.
- 
+  ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture3.png)
 9.	After the import completes, **Select** the imported application: “Parking Issue Reporting”
- 
+  ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture4.png)
 10.	Take a moment to familiarize yourself with the existing app components
 **Tip!**: To return to **Studio** at any time: 
 - From the Main/Normal UI, navigate to **System Applications > Studio**
@@ -68,12 +68,12 @@ We already have a table tracking **Employee Cars**, now we need a table to store
 •	**Use singular table names**. That is, a table that stores cars is called “Car” instead of “Cars”, and this is admittedly purely subjective, but the established convention in ServiceNow is singular table names, so you’ll fit in better by following it.
 •	**Don’t make users enter data you can figure out through automation**, auto-populate **“Reported By”** with the logged-in user by setting **“Default Value”** on that column to “javascript: gs.getUserID()”. This will automatically populate this field for new records. **NOTE:** Add this default value to yourexisting **Reported By** field **after** saving the table.
 •	**Use auto-numbering for tables that don’t have a unique identifier.** This is on the “Controls” tab/section of the table form:
- 
+  ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture5.png)
 •	**Application Access:** Actively prepare for outside access or prevent it. If you’re not equipped to handle requests of any kind from other apps or integrations, don’t let them in. 
- 
+  ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture6.png)
 •	**Declare your table’s display column.** If anything should ever reference your table, it needs to know which column to use as the display value; otherwise you’ll get a sys_id or a timestamp, which is not a good experience. If you have a “number” or a “name” field, it will be used as the default display column if one is not already specified, so if you’ve turned on auto-numbering (see above) you’re all good!
 Here’s what your table columns should look like when you’re all done:
- 
+  ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture7.png)
  
 
 ## Exercise 1.2: Configure Table UI
@@ -83,16 +83,16 @@ Use the Form Designer to layout the new “Parking Issue” table. Make it look 
 - Select **Create New Application File** (or use the keyboard shortcut)
 - Select **Form**
 - Under **My tables**, select **Parking Issue [x_pir_parking_issue]**
- 
+  ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture8.png)
 2.	In the **Form Designer** UI, drag and drop the fields to make the form look pretty. 
-
+ ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture9.png)
  
 3.	Click **Save**
 4.	In **Normal UI**, navigate to **Parking Issue Reporting > Parking Issues** (refresh if you don’t see it)
 5.	Does the column layout make sense? If not, use “Configure List Layout” to layout the columns in a way that makes sense to a user:
 - Select hamburger at top-left of list
 - Select **List Layout**
- 
+  ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture10.png)
 **Tip!: List Layout** or **Configure** will specify the global default. **Personalize List Columns** changes only your specific list layout. If you’re building an app, you want **List Layout (UI16)** or **Configure.**
  
  
@@ -101,12 +101,12 @@ Any table that is going to be used in a reference field should have its sys_ref_
 1.	In **Normal UI**, navigate to a **Parking Issues** and click **New**.
 (You could also type “x_pri_parking_issue.form” into left nav search and hit enter)
 2.	Click the **magnifying glass** adjacent to the **“Car”** reference field to bring up the Reference list. It should look something like below (just includes the “License Plate” field, since it’s the display field for that table)
-
+ ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture11.png)
  
 3.	Select the “hamburger” icon    at the top left of the “Employee Cars” popup and select **“List Layout”** (NOT the hamburger above it on Parking Issue)
- 
+  ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture12.png)
 4.	Specify a list layout that makes it easier for the user. I’m more likely to remember “Pink Acura CL” than I am “2KNA418”. Here’s an example:
- 
+  ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture13.png)
 ## Exercise 1.4: Create a new role
 In our Parking Issue App, we anticipate two types of users:
 •	**x_pir.user** (General users)
@@ -117,7 +117,7 @@ o	People who control the behavior of the app and have visibility into its use
 You already have the general user role (**x_pir.user**), let’s create a role for the lot manager
 1.	Open up **Studio**
 2.	Create a **Role** for lot management users. 
-
+ ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture14.png)
 **Suffix:**** lot_manager
 **Name:** will auto-populate to “x_pir.lot_manager”, this is your actual role name
 **Description:** <Give it a description that makes sense based the role’s purpose>
@@ -146,15 +146,15 @@ Access Control Rules (ACLs) for tables are defined at either the table- or field
 **Help! Access Control changes require elevation to security_admin.** If you don’t see “Access Control” in Studio when you try to “Create Application File”, you need to elevate using steps that follow.
 
 1.	Elevate to **security_admin:** in **Normal UI**, click profile name at top right, and select **“Elevate Roles”**
- 
+  ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture15.png)
 2.	In the “Elevate Roles” popup that appears, check the box adjacent to **“security_admin”** and click **OK**.
- 
+  ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture16.png)
 3.	Return to **Studio**, and create a new **Access Control**
 **Don’t see Access Control?** If you’ve elevated to **security_admin**, Refresh Studio
  
 # ACL Overview
 If you’re already an Access Control (ACL) expert, or you’re feeling independent and adventurous, skip this section. Otherwise, check out this overview of the Access Control form and then use the details here to create the set of ACLs in the exercise that follows.
- 
+  ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture17.png)
 **Type:** We’re creating ACLs for a table, so we want record here (this is most common), but you can control access to a number of different things (processor, ui_page)
 **Operation:** For tables/records, we can create ACLs to target each of the CRUD operations (create/read/write/delete). 
 **Admin Overrides:** Check this box if you want to exclude users with the admin role from the rule (effectively returning true
@@ -165,7 +165,7 @@ If you’re already an Access Control (ACL) expert, or you’re feeling independ
 **First Choice List:** Since we’re creating a record/table ACL, select the table name that you’re controlling access to.
 **Second Choice List:** This determines whether this record ACL is table-level or field-level. Simply put, it you select a field here (or “\*” to apply to all fields on the table), it’s a field-level ACL. If you leave “--None--“, it’s a table/record-level ACL
 	**Description:** Good developers use this field to explain in terms a CIO can understand exactly what this rule is for. This is like adding comments to your source code. Assume that the ACLs you write will be inherited by a psychopath. Don’t make him angry.
-
+ ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture18.png)
  
 **Requires Role**:  This **embedded list** is where you specify the **role(s)** required to **grant** access to the specified resource (table/field/ui_page/etc.). 
 **Condition:** This is the same filter builder that you use when filtering any list of records in ServiceNow. This defines the set of rules to which the ACL applies, or put a different way, defines the set of records that you’re granting access to for the specified role.
@@ -192,7 +192,7 @@ Any logged-in user	Parking Issue	Read	Property “x_pir.parking_issues_public”
 **Tip!:** Unsure what your **filter Condition** should be? **Open a list** of records for the target table, and build your filter there, then you can actually see which rows will apply.
 
 **Hint:** The **Reported By** field on the **Parking Issue** table stores the user that created the issue, and you can retrieve the logged-in user via the function call **“javascript: gs.getUserID()”**
- 
+  ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture19.png)
 **Tip!: Avoid Scripts in ACLs for ideal performance.** Scripts are evaluated after data has been queried, once for each row in the result set. These microseconds can add up and result in slow page loads.
 **Tip!:** You may have noticed that when you created a field-level ACL on x_pir_employee_car.employee, the system automatically created an ACL on x_pir_employee_car.*. Since the system defaults to deny, this “*” rule grants access to all fields on the table, so that your rule targeting just the “employee” field supersedes that rule just for that field.
  
@@ -242,7 +242,7 @@ Additionally, we need to keep the Employee Cars data up-to-date with new employe
 **Content Negotiation:** This is a REST thing. The default should be sufficient. If you need to accept input or return a response that’s in a weird format, you’d specify that here. JSON, XML, or text should be sufficient for most APIs.
 
 **Documentation:** If you have documentation (which you should), link to it here. At the very least, populate the “Short Description” with enough information to give an indication of the purpose and high-level behavior of your API
-
+ ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture20.png)
 Here’s what your form will look like at this point:
  
 4.	Scroll down to the **Query Parameters** related list, and create one record for each of the input parameters, along with an example value (these are going to be the inputs to the API we create next!):
@@ -253,10 +253,10 @@ Here’s what your form will look like at this point:
 **description** (example value: taking up two parking spaces)
 
 Here’s what the **color Query Parameter** will look like, as an example:
-
+ ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture21.png)
  
 And here’s what the related list will look like:
- 
+  ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture22.png)
 **Tip!:** Use the Is Required flag to specify mandatory parameters. In our case, nothing is mandatory, we just raise an exception in the case that we didn’t have enough information
 
 ## Exercise #2.2 Scripted REST Resource
@@ -273,7 +273,7 @@ Find the Resources related list on the **Scripted REST Service** and click **New
 **Documentation:** Fill this out just like you would add comments to source code
 3.	Save/Submit the form, then scroll down to the Related List Query Parameter Associations on the Scripted REST Resource you just created.
 4.	Create a **Query Parameter Association** entry for each of the Query Parameters you created (color, make, model, license_plate, description)
- 
+  ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture23.png)
 5.	Write the **Script** for this **Scripted REST Resource.**
 **inputs:** color, make, model, license_plate, description
 **output:** Parking Issue number
@@ -333,7 +333,7 @@ http://tinyurl.com/hx2gea2
 })(request, response);
 6.	Fire up the REST API Explorer to test this API by clicking the form link “Explore REST API” at the bottom of the form (or from Left nav, go to System Web Services > REST > REST API Explorer)
 7.	In the top-left, make sure the target namespace/API point to the API we just created:
- 
+  ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture33.png)
 8.	In the **REST API Explorer** you can easily craft sample requests to consume the API you’ve just created. Let’s test a use case, where Larry Burke left on the headlights on his Blue Mitsubishi Eclipse with license plate 8ZUS565
 **license_plate:** 8ZUS565
 **description:** Left headlights on
@@ -342,15 +342,15 @@ leave the other options blank, if you have license_plate, you don’t need make/
 9.	Click **Send** at the bottom of the page
 
 Note: You might get a warning message like the following, which is just telling you that your test might actually change data, which is ok in this case
- 
+  ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture24.png)
 10.	Look at the **Response** Status Code and Body to see if you were successful. A status code of **200** and a body that includes the newly created **Parking Issue** record number means success. Anything else means it’s debug time!
 Here’s an example of a failure response which tells us that we forgot to create the Script Include “EmployeeCar”:
- 
+  ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture25.png)
 11.	Repeat the previous step until you’ve got success (i.e. a correctly created Parking Issue record). 
 
 **Tip!: Having trouble getting things to work?** Peek ahead to **Exercise #3.2** and add some **debug logging** to help trace our script behavior
 12.	Now, try another use case, where you don’t have the license plate number, but you do have color/make/model. Your script should be able to still be able to find the record:
- 
+  ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture26.png)
 13.	Again, repeat until you get success. Add debug logging per Exercise #3.2 to help.
 
 ## Exercise 2.3 [STRETCH]: Configurable Behavior
@@ -438,7 +438,7 @@ You can create a properties page, which will show all your app’s custom proper
 **Name:** Parking
 5.	Open the System Property Category you just created, scroll down to the related list Properties and click the **Edit** button
 6.	Type the app scope (x_pir) into the Search box and the two properties you created will appear. Select them (any others you may have created for STRETCH goals) and move them to the box on the right, then click **Save**
- 
+  ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture27.png)
 7.	From **Studio,** Create a new Module
 **Title:** Properties
 **Application Menu:** Parking Issue Reporting
@@ -449,7 +449,7 @@ You can create a properties page, which will show all your app’s custom proper
 8.	Save the Module
 9.	Return to the **Normal UI**, refresh the left nav, and find your **Parking > Properties** module
 10.	Observe your new properties page! Any properties you associate with the Parking Property Category will automatically show up here:
-
+  ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture28.png)
  
 11.	Use this property page the change the **Logging Verbosity** property to **debug**.
  
@@ -479,10 +479,10 @@ This activates debug logging for this app for just your session. No other sessio
 5.	In a new tab/window, navigate to <your instance>/ui_page.do
 **Tip!**: ui_page.do is just an empty page, but since Session Debug output emits the logs for the Previous Transaction in addition to the current one, you can use it to see session debug output for a transaction that doesn’t emit session debug output (like REST
 6.	Observe your log messages are emitted like the following.
- 
+   ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture29.png)
 7.	In the **Normal UI** execute System Diagnostics > Session Debug > **Debug SQL (Detailed)**
 This will log all SQL statements executed for each transaction in your session (irrespective of app) in addition to your app’s debug logging.
- 
+   ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture30.png)
 8.	Repeat steps to submit a **Parking Issue** via the **REST API Explorer**
 9.	Reload **/ui_page.do** to get **SQL Debug** output, and scan through to see the actual SQL executed by the GlideRecord scripts you wrote! Here’s an example
 [1] 13:43:11.758: [DEBUG] x_pir: licensePlate=, color=Teal, make=GMC, model=Envoy, description=lights on
@@ -501,10 +501,10 @@ Line [6] shows the INSERT statement to create a new parking issue table
 Now that you have visibility into the actual SQL statements your app is running and how long they take, you can create database indexes to cover common queries to keep performance optimal even as the table sizes grow. 
 1.	In **Studio**, open the **Employee Car Table**
 2.	Scroll down to the Related List **Database Indexes**. Here you can see the indexes that already exist on this table. By default, you’ll only have a PRIMARY key on sys_id, and secondary indexes for each reference field (added automatically to help with JOINs)
- 
+   ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture31.png)
 3.	We know we’re going to be querying by **license_plate_number** from our REST API, so it makes sense to create a Database Index for it. Click the **New** button on the **Database Indexes** related list.
 4.	In the form that pops up, select the **License Plate Number** field, and check the Unique box:
- 
+   ![alt text](https://github.com/brocoppler/GuidebookTemplate/blob/master/LabPics/Picture32.png)
 5.	Click **Create Index**.
 This will schedule index creation via a Run Once scheduled job that should run within a minute or so.
 6.	Refresh the **Database Indexes** related list and observe the new index on license_plate_number.
